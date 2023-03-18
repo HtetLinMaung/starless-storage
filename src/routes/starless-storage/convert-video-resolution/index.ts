@@ -37,5 +37,10 @@ export default brewBlankExpressFunc(async (req, res) => {
       console.error(`Error converting video to ${resolution}:`, err);
     })
     .run();
-  res.send("Video conversion started");
+
+  res.json({
+    code: 200,
+    message: "Video conversion started",
+    data: outputFilePath.replace(storageFolderPath, ""),
+  });
 });
