@@ -2,9 +2,9 @@ import { brewBlankExpressFunc } from "code-alchemy";
 import fs from "fs";
 import path from "path";
 import ffmpeg from "fluent-ffmpeg";
-import isAuth from "../../../utils/is-auth";
-import { storageFolderPath } from "../../../constants";
-import getResolutionSize from "../../../utils/get-resolution-size";
+import isAuth from "../../../../utils/is-auth";
+import { storageFolderPath } from "../../../../constants";
+import getResolutionSize from "../../../../utils/get-resolution-size";
 
 export default brewBlankExpressFunc(async (req, res) => {
   const method = req.method.toLowerCase();
@@ -16,7 +16,7 @@ export default brewBlankExpressFunc(async (req, res) => {
     return res.sendStatus(401);
   }
   const { file_path, resolution } =
-    req.body || Object.keys(req.body).length ? req.body : req.query;
+    req.body && Object.keys(req.body).length ? req.body : req.query;
   if (!fs.existsSync(file_path)) {
     return res.sendStatus(404);
   }

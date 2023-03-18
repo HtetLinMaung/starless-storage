@@ -8,7 +8,8 @@ import isAuth from "../../../../utils/is-auth";
 export default brewBlankExpressFunc(async (req, res) => {
   const method = req.method.toLowerCase();
   const filePath = req.params.path;
-  if (method != "get" || !fs.existsSync(filePath)) {
+  const file = path.join(storageFolderPath, filePath);
+  if (method != "get" || !fs.existsSync(file)) {
     return res.sendStatus(404);
   }
   if (!isAuth(req)) {
@@ -20,7 +21,7 @@ export default brewBlankExpressFunc(async (req, res) => {
 
   const fileName = path.basename(filePath);
   const contentType = mime.getType(filePath);
-  const file = path.join(storageFolderPath, filePath);
+
   const stat = fs.statSync(file);
   const fileSize = stat.size;
   const range = req.headers.range;

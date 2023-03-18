@@ -1,11 +1,14 @@
 import { Application } from "express";
 import fs from "fs";
-import { storageFolderPath } from "./constants";
+import { fileMapFolderPath, storageFolderPath } from "./constants";
 import log from "./utils/log";
 
 export const afterMasterProcessStart = async () => {
   if (!fs.existsSync(storageFolderPath)) {
     fs.mkdirSync(storageFolderPath);
+  }
+  if (!fs.existsSync(fileMapFolderPath)) {
+    fs.mkdirSync(fileMapFolderPath);
   }
 };
 
